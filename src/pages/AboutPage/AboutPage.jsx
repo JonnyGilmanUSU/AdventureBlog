@@ -7,6 +7,12 @@ import TheatreOfShadowsPhoto from '../../assets/images/TheatreOfShadows.png';
 function AboutPage() {
   return (
     <>
+    <div className={styles.hero}>
+        <img src={HardDayHarveyPhoto} alt='Hero' />
+        <div className={styles.heroText}>
+            About
+        </div>
+    </div>
     <div className={`${styles.blogPost} ${styles.container}`}>
         <div>
             <h2>About Us</h2>

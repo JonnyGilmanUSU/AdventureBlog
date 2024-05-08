@@ -17,15 +17,6 @@ const navItems = [
             { name: 'Hiking', path: '/adventures/hiking' }
         ]
     },
-    {
-        title: 'Login',
-        path: '/login'
-    },
-    {
-        title: 'Signup',
-        path: '/signup'
-    },
-
 ];
 
 export default navItems;

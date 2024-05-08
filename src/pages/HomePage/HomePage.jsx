@@ -7,6 +7,12 @@ import IntroPhoto2 from '../../assets/images/Intro2.png';
 function HomePage() {
   return (
     <div className={styles.homePage}>
+          <div className={styles.hero}>
+        <img src={HardDayHarveyPhoto} alt='Hero' />
+        <div className={styles.heroText}>
+            Home
+        </div>
+    </div>
       <div className={styles.container}>
         <div>
           <h2>Welcome to <br /> Sadie and Jonny's Blog</h2>

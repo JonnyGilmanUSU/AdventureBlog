@@ -1,40 +1,46 @@
 import './App.css';
+import { useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import axios from 'axios';
 import Layout from './components/Layout/Layout';
 import HomePage from './pages/HomePage/HomePage';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
-import CanyoneeringPage from './pages/CanyoneeringPage/CanyoneeringPage';
-import ClimbingPage from './pages/ClimbingPage/ClimbingPage';
 import AboutPage from './pages/AboutPage/AboutPage';
-import BackpackingPage from './pages/BackpackingPage/BackpackingPage';
-import HikingPage from './pages/HikingPage/HikingPage';
 import AdventuresPage from './pages/AdventuresPage/AdventuresPage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import LoginPage from './pages/LoginPage/LoginPage';
+import BlogPostDetails from './pages/BlogPostDetails/BlogPostDetailsPage';
+import CreateBlogPost from './pages/CreateBlogPost/CreateBlogPostPage';
+import { AuthProvider } from './Context/AuthContext';
+import { SearchResultsProvider } from './Context/SearchContext';
+import AdventureTypePage from './pages/AdventureTypePage/AdventureTypePage';
+import SearchResultsPage from './pages/SearchResultsPage/SearchResultsPage';
 
 
 
 
 
 function App() {
-
   const router = createBrowserRouter([
     {path: '/', element: <Layout />, errorElement: <Layout><ErrorPage/></Layout>, children: [
       {index: true, element: <HomePage/>},
-      {path: 'adventures/canyoneering', element: <CanyoneeringPage/>},
-      {path: 'adventures/climbing', element: <ClimbingPage/>},
-      {path: 'adventures/backpacking', element: <BackpackingPage/>},
-      {path: 'adventures/hiking', element: <HikingPage/>},
       {path: 'adventures', element: <AdventuresPage/>},
+      {path: 'adventures/:type', element: <AdventureTypePage />},
       {path: 'login', element: <LoginPage/>},
       {path: 'signup', element: <SignupPage/>},
-      {path: 'about', element: <AboutPage/>}
-
+      {path: 'about', element: <AboutPage/>},
+      {path: 'createBlogPost', element: <CreateBlogPost/>},
+      {path: 'blog/:id', element: <BlogPostDetails />}, 
+      {path: 'searchResults', element: <SearchResultsPage />}, 
     ]}
   ]);
 
   return (
-    <RouterProvider router={router}/>
+    <SearchResultsProvider>
+      <AuthProvider>
+        <RouterProvider router={router}/>
+      </AuthProvider>
+    </SearchResultsProvider>
   );
 }
 

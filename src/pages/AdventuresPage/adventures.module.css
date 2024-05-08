@@ -122,10 +122,53 @@ figcaption {
     padding: 1rem 0;
 }
 
+/* --------------------------------------------------- HEADER IMAGE --------------------------------------------------- */
+
+
+.hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+  clip-path: polygon(100% 0%, 100% 0, 100% 35%, 100% 100%, 100% 100%, 70% 97%, 26% 92%, 0 89%, 0% 35%, 0 0);
+  filter: brightness(70%)
+}
+
+.hero {
+  position: relative;
+  top: -60px;
+  z-index: 100;
+}
+
+.heroText {
+  position: absolute;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust positioning to exact center */
+  color: white; /* Text color */
+  max-width: 85%;
+  font-size: 2rem; /* Adjust size as needed */
+  text-align: center; /* Ensure text is centered */
+  z-index: 201; /* Above the image */
+  width: 100%; /* Ensure the text can be centered in the hero area */
+  cursor: pointer;
+  opacity: 80%;
+
+}
+
+.heroText:hover{
+  opacity: .9;
+}
+
+
+
 
 
 /* --------------------------------------------------- BLOG POST --------------------------------------------------- */
-.readMoreButton {
+.blogPost {
+  margin-bottom: 4rem;
+}
+
+.blogPost .readMoreButton {
     background-color: white;
     border: solid black 1px; 
     text-transform: uppercase;
@@ -134,6 +177,11 @@ figcaption {
     cursor: pointer;
     font-size: 16px; 
     width: 45%;
+    color: black;
+  }
+
+  .blogPost .readMoreButton:hover {
+    opacity: .4;
   }
   
   .postBreak {
@@ -150,7 +198,7 @@ figcaption {
   }
 
   .blogPostsHeader {
-    margin: 5rem 0rem 3rem 0;
+    margin: 5rem auto 3rem auto;  
   }
 
   img {

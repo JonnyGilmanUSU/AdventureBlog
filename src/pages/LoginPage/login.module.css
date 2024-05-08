@@ -160,6 +160,7 @@ button:hover {
 .signupLink {
     text-align: center;
     margin-top: 20px;
+    
 }
 
 .signupLink p {
@@ -171,11 +172,23 @@ button:hover {
 .signupLink a {
     color: #1D88C6;
     text-decoration: none;
+    
 }
 
 .signupLink a:hover {
     text-decoration: underline;
 }
 
+/* --------------------------------------------------- Error Handling --------------------------------------------------- */
+.errorMessage {
+  font-size: 12px;
+  text-align: center;
+  color: red;
+}
 
+.successMessage {
+  font-size: 12px;
+  text-align: center;
+  color: #1D88C6;
+}
 

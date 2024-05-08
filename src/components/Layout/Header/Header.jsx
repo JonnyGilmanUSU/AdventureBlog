@@ -21,7 +21,8 @@ function Header() {
         setNavOpen(false);
     };
 
-    const closeSearchMenu = () => {
+    const closeMenus = () => {
+        setNavOpen(false);
         setSearchOpen(false);
     }
 
@@ -29,7 +30,7 @@ function Header() {
         // Function to detect click outside the sideMenu
         const handleClickOutside = (event) => {
             if (navOpen && sideMenuRef.current && !sideMenuRef.current.contains(event.target)) {
-                handleMenuClick();
+                closeMenus();
             }
         };
         
@@ -46,16 +47,10 @@ function Header() {
     <div>
         <MainHeader />
         <NavBar onMenuClick={handleMenuClick} onSearchClick={handleSearchClick} />
-        <div className={styles.hero}>
-            <img src={HeroImage} alt="Hero Scene" />
-            <div className={styles.heroText}>
-                {/* Battleship Mountain */}
-            </div> 
-        </div>
         <div ref={sideMenuRef}>
-            <SideMenu isOpen={navOpen} />
+            <SideMenu isOpen={navOpen}  onClose={closeMenus} />
         </div>
-        <SearchMenu isOpen={searchOpen} onClose={closeSearchMenu}/>
+        <SearchMenu isOpen={searchOpen} onClose={closeMenus}/>
     </div>
   )
 }

@@ -1,36 +1,74 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Link, redirect } from 'react-router-dom';
 import styles from './signup.module.css';
 
 
-function LoginPage() {
+function SignUpPage() {
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: ''
+  });
+
+  const handleChange = (e) => {
+    setFormData({...formData, [e.target.name]: e.target.value});
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent default form submission
+    setErrorMessage('');
+    setSuccessMessage('');
+    try {
+        const response = await axios.post('http://localhost:3001/signup', formData)
+        // Redirect or handle response here, such as redirecting to the login page
+        console.log("Response:  ", response.data.message)
+
+        if(response.status === 201) {
+             // Reset form data before redirecting
+            setFormData({
+              firstName: '',
+              lastName: '',
+              email: '',
+              password: ''
+          });
+          setSuccessMessage(response.data.successMessage);
+          window.location.href = '/login'; // Use the desired URL
+        }
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.message)
+        setErrorMessage(error.response.data.message);
+      } else {
+        console.log('Error', error.message)
+      }
+    }
+};
+
   return (
-    <div class={styles.loginContainer}>
-    <form class={styles.loginForm}>
-        <h2>Sign Up</h2>
-        <div class={styles.inputGroup}>
-            <label for="firstName">First Name</label>
-            <input type="text" id="firstName" name="firstName" required />
+<div className={styles.loginContainer}>
+            <form onSubmit={handleSubmit}  className={styles.loginForm}>
+                <h2>Sign Up</h2>
+                {Object.entries(formData).map(([key, value]) => (
+                    <div className={styles.inputGroup} key={key}>
+                        <label htmlFor={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</label>
+                        <input type={key === "password" ? "password" : "text"} 
+                               id={key} name={key} value={value} 
+                               onChange={handleChange} required />
+                    </div>
+                ))}
+                <button type="submit">Sign Up</button>
+                {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+                {successMessage && <p className={styles.successMessage}>{successMessage}</p>}
+                <p className={styles.signupLink}>
+                    Already have an account? <Link to="/login">Login</Link>
+                </p>
+            </form>
         </div>
-        <div class={styles.inputGroup}>
-            <label for="lastName">Last Name</label>
-            <input type="text" id="lastName" name="lastName" required />
-        </div>
-        <div class={styles.inputGroup}>
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required />
-        </div>
-        <div class={styles.inputGroup}>
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required />
-        </div>
-        <button type="submit">Sign Up</button>
-        <p className={styles.signupLink}>
-          Already have an account? <Link to="/login">Login</Link>
-        </p>
-    </form>
-</div>
   )
 }
 
-export default LoginPage
+export default SignUpPage;
